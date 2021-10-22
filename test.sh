@@ -145,3 +145,21 @@ fi
 echo -e "\n"
 
 
+echo -ne "Test 5:  " 
+echo  " ./pipex infile2 \"pwd\" \" tr o b\" outfile "
+./pipex infile2 "pwd" "tr o b" outfile
+echo $? > resulprog
+<infile2 pwd | tr o b > outpipe
+echo $? > resulpipe
+echo -ne "Output check: "
+if diff outpipe outfile;
+    then printf "\033[32m[OK]\033[0m" ;
+else printf "\033[31m[KO]\033[0m";
+fi
+echo
+echo -ne "Exit check: "
+if diff resulpipe resulprog;
+    then printf "\033[32m[OK]\033[0m" ;
+else printf "\033[31m[KO]\033[0m"; 
+fi
+echo -e "\n"
