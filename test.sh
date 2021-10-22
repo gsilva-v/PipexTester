@@ -1,7 +1,9 @@
 #Recompilando
 printf "\033[36mCOMPILING PROGRAM\n\033[0m"
+cd ..
 make re
-
+cp ./pipex ./PipexTester
+cd PipexTester
 
 echo -ne "Invalid Tests: Invalid input " 
 echo  " ./pipex inf \"grep a\" \"wc -l\" outfile "
