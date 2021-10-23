@@ -1,24 +1,23 @@
 #Recompilando
 printf "\033[36mCOMPILING PROGRAM\n\033[0m"
-cd ..
-make re
+make -C ../ all
 cp ./pipex ./PipexTester
-cd PipexTester
 
+echo -e "\n"
 echo -ne "Invalid Tests: Invalid input " 
 echo  " ./pipex inf \"grep a\" \"wc -l\" outfile "
-./pipex inf "grep a" "wc -l" outfile
-echo $? > resulprog
-<inf grep a | wc -l > outpipe
-echo $? > resulpipe
+./pipex inf "grep a" "wc -l" ./results/test1/outputs/outfile
+echo $? > ./results/test1/exitcodes/resulprog
+<inf grep a | wc -l > ./results/test1/outputs/outpipe
+echo $? > ./results/test1/exitcodes/resulpipe
 echo -ne "Output check: "
-if diff outpipe outfile;
+if diff ./results/test1/outputs/outpipe ./results/test1/outputs/outfile;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
 echo
 echo -ne "Exit check: "
-if diff resulpipe resulprog;
+if diff ./results/test1/exitcodes/resulpipe ./results/test1/exitcodes/resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m"; 
 fi
@@ -61,7 +60,7 @@ echo -ne "Exit check: "
 if diff resulpipe resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m"; 
-fi
+fi./results/test1/outfile
 echo -e "\n"
 
 
@@ -163,5 +162,24 @@ echo -ne "Exit check: "
 if diff resulpipe resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m"; 
+fi
+echo -e "\n"
+
+echo -ne "Test 6:" 
+echo  " ./pipex infile \"tr a ' '\" \"tr ' ' x\" outfile "
+./pipex infile2 "tr a ' '" "tr ' ' x" ./results/test6/outfile 
+echo $? > resulprog
+<infile2 tr a  ' ' | tr ' ' x > outpipe 
+echo $? > resulpipe
+echo -ne "Output check: "
+if diff outpipe outfile;
+    then printf "\033[32m[OK]\033[0m" ;
+else printf "\033[31m[KO]\033[0m";
+fi
+echo
+echo -ne "Exit check: "
+if diff resulprog resulpipe;
+    then printf "\033[32m[OK]\033[0m" ;
+else printf "\033[31m[KO]\033[0m";
 fi
 echo -e "\n"
