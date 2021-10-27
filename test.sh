@@ -1,23 +1,23 @@
 #Recompilando
 printf "\033[36mCOMPILING PROGRAM\n\033[0m"
 make -C ../ all
-cp ./pipex ./PipexTester
+cp ../pipex ./
 
 echo -e "\n"
 echo -ne "Invalid Tests: Invalid input " 
 echo  " ./pipex inf \"grep a\" \"wc -l\" outfile "
-./pipex inf "grep a" "wc -l" ./results/test1/outputs/outfile
-echo $? > ./results/test1/exitcodes/resulprog
-<inf grep a | wc -l > ./results/test1/outputs/outpipe
-echo $? > ./results/test1/exitcodes/resulpipe
+./pipex inf "grep a" "wc -l" ./results/testinvinput/outputs/outfile
+echo $? > ./results/testinvinput/exitcodes/resulprog
+<inf grep a | wc -l > ./results/testinvinput/outputs/outpipe
+echo $? > ./results/testinvinput/exitcodes/resulpipe
 echo -ne "Output check: "
-if diff ./results/test1/outputs/outpipe ./results/test1/outputs/outfile;
+if diff ./results/testinvinput/outputs/outpipe ./results/testinvinput/outputs/outfile;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
 echo
 echo -ne "Exit check: "
-if diff ./results/test1/exitcodes/resulpipe ./results/test1/exitcodes/resulprog;
+if diff ./results/testinvinput/exitcodes/resulpipe ./results/testinvinput/exitcodes/resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m"; 
 fi
@@ -27,56 +27,59 @@ echo -e "\n"
 
 echo -ne "Invalid Tests: Invalid command " 
 echo  " ./pipex infile \"catt\" \"wcc -l\" outfile "
-./pipex infile "catt" "wcc -l" outfile
-echo $? > resulprog
-<infile catt | wcc -l> outpipe
-echo $? > resulpipe
+./pipex infile "catt" "wcc -l" ./results/testinvcommand/outputs/outfile
+echo $? > ./results/testinvcommand/exitcodes/resulprog
+<infile catt | wcc -l> ./results/testinvcommand/outputs/outpipe
+echo $? > ./results/testinvcommand/exitcodes/resulpipe
 echo -ne "Output check: "
-if diff outpipe outfile;
+if  diff ./results/testinvcommand/outputs/outpipe ./results/testinvcommand/outputs/outfile;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
 echo
 echo -ne "Exit check: "
-if diff resulpipe resulprog;
+if diff ./results/testinvcommand/exitcodes/resulpipe ./results/testinvcommand/exitcodes/resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m"; 
 fi
 echo -e "\n"
 
+
 echo -ne "Invalid Tests: Invalid args " 
 echo  " ./pipex infile  outfile "
-./pipex infile outfile
-echo $? > resulprog
-<infile > outpipe
-echo $? > resulpipe
+./pipex infile ./results/testinvargs/outputs/outfile
+echo $? > ./results/testinvargs/exitcodes/resulprog
+<infile > ./results/testinvargs/outputs/outpipe
+echo $? > ./results/testinvargs/exitcodes/resulpipe
 echo -ne "Output check: "
-if diff outpipe outfile;
+if  diff ./results/testinvargs/outputs/outpipe ./results/testinvargs/outputs/outfile;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
 echo
 echo -ne "Exit check: "
-if diff resulpipe resulprog;
+if diff ./results/testinvargs/exitcodes/resulpipe ./results/testinvargs/exitcodes/resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m"; 
-fi./results/test1/outfile
+fi
 echo -e "\n"
 
 
 
 echo -ne "Test 1:" 
 echo  " ./pipex infile \"tr a b\" \"tr b c\" outfile "
-./pipex infile2 "tr a b" "tr b c" outfile && echo $? > resulprog
-<infile2 tr a b | tr b c> outpipe && echo $? > resulpipe
+./pipex infile2 "tr a b" "tr b c" ./results/test1/outputs/outfile
+echo $? > ./results/test1/exitcodes/resulprog
+<infile2 tr a b | tr b c> ./results/test1/outputs/outpipe
+echo $? > ./results/test1/exitcodes/resulpipe
 echo -ne "Output check: "
-if diff outpipe outfile;
+if  diff ./results/test1/outputs/outpipe ./results/test1/outputs/outfile;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
 echo
 echo -ne "Exit check: "
-if diff resulprog resulpipe;
+if  diff ./results/test1/exitcodes/resulpipe ./results/test1/exitcodes/resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
@@ -86,18 +89,18 @@ echo -e "\n"
 
 echo -ne "Test 2:" 
 echo  " ./pipex infile \"cat\" \"wc -l\" outfile "
-./pipex infile "cat" "wc -l" outfile 
-echo $? > resulprog
-<infile cat | wc -l > outpipe
-echo $? > resulpipe
+./pipex infile "cat" "wc -l" ./results/test2/outputs/outfile
+echo $? > ./results/test2/exitcodes/resulprog
+<infile cat | wc -l > ./results/test2/outputs/outpipe 
+echo $? > ./results/test2/exitcodes/resulpipe
 echo -ne "Output check: "
-if diff outpipe outfile;
+if  diff ./results/test2/outputs/outpipe ./results/test2/outputs/outfile;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
 echo 
 echo -ne "Exit check: "
-if diff resulprog resulpipe;
+if  diff ./results/test2/exitcodes/resulpipe ./results/test2/exitcodes/resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
@@ -107,18 +110,18 @@ echo -e "\n"
 
 echo -ne "Test 3:  " 
 echo  " ./pipex infile \"ls -la\" \"wc -l\" outfile "
-./pipex infile "ls -la" "wc -l" outfile
-echo $? > resulprog
-<infile ls -la | wc -l > outpipe
-echo $? > resulpipe
+./pipex infile "ls -la" "wc -l"  ./results/test3/outputs/outfile
+echo $? > ./results/test3/exitcodes/resulprog
+<infile ls -la | wc -l >  ./results/test3/outputs/outpipe
+echo $? > ./results/test3/exitcodes/resulpipe
 echo -ne "Output check: "
-if diff outpipe outfile;
+if  diff ./results/test3/outputs/outpipe ./results/test3/outputs/outfile;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
 echo
 echo -ne "Exit check: "
-if diff resulpipe resulprog;
+if diff ./results/test3/exitcodes/resulpipe ./results/test3/exitcodes/resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m"; 
 fi
@@ -128,18 +131,18 @@ echo -e "\n"
 
 echo -ne "Test 4:  " 
 echo  " ./pipex infile \"grep a\" \"wc -l\" outfile "
-./pipex infile "grep a" "wc -l" outfile
-echo $? > resulprog
-<infile grep a | wc -l > outpipe
-echo $? > resulpipe
+./pipex infile "grep a" "wc -l" ./results/test4/outputs/outfile
+echo $? > ./results/test4/exitcodes/resulprog
+<infile grep a | wc -l > ./results/test4/outputs/outpipe
+echo $? > ./results/test4/exitcodes/resulpipe
 echo -ne "Output check: "
-if diff outpipe outfile;
+if  diff ./results/test4/outputs/outpipe ./results/test4/outputs/outfile;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
 echo
 echo -ne "Exit check: "
-if diff resulpipe resulprog;
+if diff ./results/test4/exitcodes/resulpipe ./results/test4/exitcodes/resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m"; 
 fi
@@ -148,38 +151,38 @@ echo -e "\n"
 
 echo -ne "Test 5:  " 
 echo  " ./pipex infile2 \"pwd\" \" tr o b\" outfile "
-./pipex infile2 "pwd" "tr o b" outfile
-echo $? > resulprog
-<infile2 pwd | tr o b > outpipe
-echo $? > resulpipe
+./pipex infile2 "pwd" "tr o b" ./results/test5/outputs/outfile
+echo $? > ./results/test5/exitcodes/resulprog
+<infile2 pwd | tr o b > ./results/test5/outputs/outpipe 
+echo $? > ./results/test5/exitcodes/resulpipe
 echo -ne "Output check: "
-if diff outpipe outfile;
+if  diff ./results/test5/outputs/outpipe ./results/test5/outputs/outfile;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m";
 fi
 echo
 echo -ne "Exit check: "
-if diff resulpipe resulprog;
+if diff ./results/test5/exitcodes/resulpipe ./results/test5/exitcodes/resulprog;
     then printf "\033[32m[OK]\033[0m" ;
 else printf "\033[31m[KO]\033[0m"; 
 fi
 echo -e "\n"
 
-echo -ne "Test 6:" 
-echo  " ./pipex infile \"tr a ' '\" \"tr ' ' x\" outfile "
-./pipex infile2 "tr a ' '" "tr ' ' x" ./results/test6/outfile 
-echo $? > resulprog
-<infile2 tr a  ' ' | tr ' ' x > outpipe 
-echo $? > resulpipe
-echo -ne "Output check: "
-if diff outpipe outfile;
-    then printf "\033[32m[OK]\033[0m" ;
-else printf "\033[31m[KO]\033[0m";
-fi
-echo
-echo -ne "Exit check: "
-if diff resulprog resulpipe;
-    then printf "\033[32m[OK]\033[0m" ;
-else printf "\033[31m[KO]\033[0m";
-fi
-echo -e "\n"
+# echo -ne "Test 6:" 
+# echo  " ./pipex infile \"tr a ' '\" \"tr ' ' x\" outfile "
+# ./pipex infile2 "tr a ' '" "tr ' ' x" ./results/test6/outputs/outfile 
+# echo $? > ./results/test6/exitcodes/resulprog
+# <infile2 tr a  ' ' | tr ' ' x > ./results/test6/outputs/outpipe 
+# echo $? > ./results/test6/exitcodes/resulpipe
+# echo -ne "Output check: "
+# if  diff ./results/test6/outputs/outpipe ./results/test6/outputs/outfile;
+#     then printf "\033[32m[OK]\033[0m";
+# else printf "\033[31m[KO]\033[0m";
+# fi
+# echo
+# echo -ne "Exit check: "
+# if diff ./results/test6/exitcodes/resulpipe ./results/test6/exitcodes/resulprog;
+#     then printf "\033[32m[OK]\033[0m" ;
+# else printf "\033[31m[KO]\033[0m";
+# fi
+# echo -e "\n"
